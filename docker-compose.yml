@@ -1,0 +1,25 @@
+version: "3"
+services:
+  app:
+    container_name: app
+    image: dockerfile
+    restart: always
+    build: .
+    ports:
+      - "4000:4000"
+
+    links:
+      - mongo
+    depends_on:
+      - "mongo"
+  mongo:
+    container_name: mongo
+    image: "mongo"
+    ports:
+      - "27017:27107"
+    volumes:
+      - ./data:/data/db
+  adminmongo:
+    image: "mrvautin/adminmongo"
+    ports:
+      - "1234:1234"
